@@ -1,8 +1,8 @@
 import React from "react";
 
-function Item({ item,onUpdateItem,onDeleteItem }) {
-  function handleAddToCartClick() {
-    
+function Item({ item, onUpdateItem, onDeleteItem}) {
+
+  function handleAddToCartClick(){
     fetch(`http://localhost:4000/items/${item.id}`, {
       method: "PATCH",
       headers: {
@@ -14,7 +14,9 @@ function Item({ item,onUpdateItem,onDeleteItem }) {
     })
       .then((r) => r.json())
       .then((updatedItem) => onUpdateItem(updatedItem));
+  
   }
+
   function handleDeleteClick() {
     fetch(`http://localhost:4000/items/${item.id}`, {
       method: "DELETE",
@@ -22,16 +24,15 @@ function Item({ item,onUpdateItem,onDeleteItem }) {
       .then((r) => r.json())
       .then(() => onDeleteItem(item));
   }
-  
 
   return (
-    <li className={item.isInCart ? "in-cart" : ""}>
+    <li className={item.handleDeleteClick ? "in-cart" : ""}>
       <span>{item.name}</span>
       <span className="category">{item.category}</span>
-      <button onClick={ handleAddToCartClick} className={item.isInCart ? "remove" : "add"}>
+      <button onClick={handleAddToCartClick} className={item.isInCart ? "remove" : "add"}>
         {item.isInCart ? "Remove From" : "Add to"} Cart
       </button>
-      <button className="remove" onClick={handleDeleteClick}>Delete</button>
+      <button onClick={handleDeleteClick} className="remove">Delete</button>
     </li>
   );
 }
